@@ -15,6 +15,16 @@ export function getChartOptions(data: ChartResponse): Options {
     xAxis: {
       type: 'datetime',
       title: { text: 'Quarter' },
+      labels: {
+        formatter: function () {
+          const date = new Date(this.value);
+          const year = date.getFullYear();
+          const month = date.getMonth();
+          const quarter = Math.floor(month / 3) + 1;
+          return `${year} Q${quarter}`;
+        },
+      },
+      tickInterval: 3 * 30 * 24 * 3600 * 1000, // Approximately 3 months
     },
     yAxis: {
       title: { text: 'Deviation (%)' },
