@@ -54,7 +54,7 @@ export function getChartOptions(data: ChartResponse): Options {
         return header + body;
       },
     },
-    series: data.series.map(series => ({
+    series: data?.series?.map(series => ({
       ...series,
       type: 'line',
     })),
@@ -64,7 +64,7 @@ export function getChartOptions(data: ChartResponse): Options {
       },
     },
     legend: {
-      enabled: data.series.length > 1,
+      enabled: data?.series?.length > 1,
     },
   };
 }

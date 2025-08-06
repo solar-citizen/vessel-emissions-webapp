@@ -3,7 +3,14 @@ import useSWR from 'swr';
 
 import { ChartResponse } from './types';
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+async function fetcher(url: string) {
+  const res = await fetch(url);
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+    throw new Error(errorData.error || `HTTP error! status: ${res.status}`);
+  }
+  return res.json();
+}
 
 /**
  * Custom hook to fetch chart data for vessel emissions.

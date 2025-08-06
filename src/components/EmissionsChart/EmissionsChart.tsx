@@ -38,14 +38,12 @@ function EmissionsChart() {
         onToggleOpen={() => setIsSelectorOpen(open => !open)}
       />
 
-      <div className='bg-white p-4 rounded-lg shadow'>
-        <HighchartsReact highcharts={Highcharts} options={options} />
-      </div>
-
-      {data.series.length === 0 && (
-        <div className='text-center py-8 text-gray-500'>
-          Select vessels to display their emissions data
+      {!error || data?.series?.length === 0 ? (
+        <div className='bg-white p-4 rounded-lg shadow'>
+          <HighchartsReact highcharts={Highcharts} options={options} />
         </div>
+      ) : (
+        <p className='text-center py-8 text-gray-500'>No vessel emissions data</p>
       )}
     </section>
   );
