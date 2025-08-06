@@ -12,6 +12,12 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
+const overrides = {
+  rules: {
+    'max-len': ['warn', { code: 100 }],
+  },
+};
+
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
@@ -29,11 +35,11 @@ const eslintConfig = [
       'import/newline-after-import': 'error',
       'import/no-duplicates': 'error',
       'import/max-dependencies': ['warn', { max: 10, ignoreTypeImports: true }],
-      'max-len': ['warn', { code: 100 }],
       semi: [2, 'always'],
     },
   },
   prettierConfig,
+  overrides,
 ];
 
 export default eslintConfig;
