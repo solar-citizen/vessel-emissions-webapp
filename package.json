@@ -1,6 +1,6 @@
 {
   "name": "vessel-emissions-webapp",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,6 +13,7 @@
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "highcharts": "^12.3.0",
     "highcharts-react-official": "^3.2.2",
     "next": "15.4.5",

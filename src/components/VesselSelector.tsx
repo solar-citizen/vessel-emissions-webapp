@@ -1,4 +1,5 @@
 'use client';
+import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 
 type VesselOption = { imo: number; name: string };
@@ -49,8 +50,10 @@ function VesselSelector({
     <div ref={containerRef} className='relative inline-block'>
       <button
         onClick={onToggleOpen}
-        className='px-4 py-2 border border-green-600 rounded-md bg-green-300 hover:bg-emerald-300 
-        cursor-pointer'
+        className={clsx(
+          'px-4 py-2 border border-emerald-500 rounded-md hover:bg-emerald-200 cursor-pointer',
+          isOpen ? 'bg-emerald-300' : 'bg-white',
+        )}
       >
         {selectedVessels.length === 0
           ? 'Select Vessels'

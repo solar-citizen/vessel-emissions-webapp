@@ -5,17 +5,16 @@ import { useState } from 'react';
 
 import VesselSelector from '#src/components/VesselSelector';
 
-import { getChartOptions } from './getChartOptions';
-import { useChartData } from './useChartData';
+import { getChartOptions, useChartData, useVesselSelection } from './lib';
 
 /**
  * React component that renders a vessel selector and an emissions deviation chart.
  * @returns The EmissionsChart component.
  */
 function EmissionsChart() {
-  const [selectedVessels, setSelectedVessels] = useState<number[]>([]);
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
+  const { selectedVessels, updateSelection } = useVesselSelection();
   const { data, error, isLoading } = useChartData(selectedVessels);
 
   if (error) return <div>Error loading emissions data</div>;
@@ -25,7 +24,7 @@ function EmissionsChart() {
   const options = getChartOptions(data);
 
   const handleVesselSelection = (vesselIds: number[]) => {
-    setSelectedVessels(vesselIds);
+    updateSelection(vesselIds);
   };
 
   return (
@@ -38,7 +37,7 @@ function EmissionsChart() {
         onToggleOpen={() => setIsSelectorOpen(open => !open)}
       />
 
-      {!error || data?.series?.length === 0 ? (
+      {data?.series?.length > 0 ? (
         <div className='bg-white p-4 rounded-lg shadow'>
           <HighchartsReact highcharts={Highcharts} options={options} />
         </div>

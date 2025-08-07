@@ -1,10 +1,10 @@
 'use client';
 import useSWR from 'swr';
 
-import { ChartResponse } from './types';
+import type { ChartResponse } from './types';
 
 async function fetcher(url: string) {
-  const res = await fetch(url);
+  const res = await fetch(`http://localhost:3030${url}`);
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
     throw new Error(errorData.error || `HTTP error! status: ${res.status}`);
@@ -29,7 +29,7 @@ export function useChartData(selectedVesselIds?: number[]) {
   const vesselQuery = selectedVesselIds?.length ? `?vesselIds=${selectedVesselIds.join(',')}` : '';
 
   const { data, error, mutate } = useSWR<ChartResponse, Error>(
-    `/api/emissions/chart-data${vesselQuery}`,
+    `/emissions/chart-data${vesselQuery}`,
     fetcher,
     {
       revalidateOnFocus: false,
